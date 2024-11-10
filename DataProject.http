@@ -1,0 +1,6 @@
+@DataProject_HostAddress = http://localhost:5015
+
+GET {{DataProject_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
