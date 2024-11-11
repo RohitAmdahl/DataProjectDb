@@ -12,6 +12,7 @@ namespace DataProject.Data
             List<Offence> offences = new();
             List<Victim> victims = new();
 
+            // Adding criminal data
             criminals.Add(new()
             {
                 CriminalId = 1,
@@ -22,7 +23,7 @@ namespace DataProject.Data
                 NickName = "Johnny",
                 CriminalPictureUrl = "https://images.unsplash.com/photo-1589304099692-7c72d558c2f3?q=80&w=1976&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                 CriminalDescription = "Known for cybercrimes and fraud.",
-                LastKnownLocation = "Oslo Norway",
+                LastKnownLocation = "Oslo, Norway",
                 Nationality = "American",
                 CriminalHistory = "Arrested twice for Sexual offences."
             });
@@ -55,75 +56,26 @@ namespace DataProject.Data
                 CriminalHistory = "Involved in offences for profit."
             });
 
-            offences.Add(new()
-            {
-                OffencesStatisticsId = 1,
-                OffenceName = "Sexual offences",
-                Count = "7484",
-                Year = 2023,
-                CriminalId = 1 
-            });
-            offences.Add(new()
-            {
-                OffencesStatisticsId = 2,
-                OffenceName = "Drug and alcohol offences",
-                Count = "29788",
-                Year = 2022,
-                CriminalId = 2
-            });
-            offences.Add(new()
-            {
-                OffencesStatisticsId = 3,
-                OffenceName = "Violence and maltreatment",
-                Count = "42994",
-                Year = 2023,
-                CriminalId = 1
-            });
-            offences.Add(new()
-            {
-                OffencesStatisticsId = 4,
-                OffenceName = "Offences for profit",
-                Count = "32843",
-                Year = 2023,
-                CriminalId = 3
-            });
+            // Adding offence data with the correct CriminalId set
+            offences.Add(new() { OffencesId = 1, OffenceName = "Sexual offences", Count = 7484, Year = 2023, CriminalId = 1 });
+            offences.Add(new() { OffencesId = 2, OffenceName = "Drug and alcohol offences", Count = 29788, Year = 2022, CriminalId = 2 });
+            offences.Add(new() { OffencesId = 3, OffenceName = "Violence and maltreatment", Count = 42994, Year = 2023, CriminalId = 1 });
 
-            victims.Add(new()
-            {
-                VictimId = 1,
-                Year = 2023,
-                VictimsName = "Alice Johnson",
-                VictimsLocation = "Downtown LA"
-            });
-            victims.Add(new()
-            {
-                VictimId = 2,
-                Year = 2022,
-                VictimsName = "Robert Thompson",
-                VictimsLocation = "Manhattan, NYC"
-            });
-            victims.Add(new()
-            {
-                VictimId = 3,
-                Year = 2023,
-                VictimsName = "Linda Park",
-                VictimsLocation = "Brooklyn, NYC"
-            });
+            // Adding victim data
+            victims.Add(new() { VictimId = 1, Year = 2023, VictimsName = "Linda Park", VictimsLocation = "Brooklyn, NYC" });
+            victims.Add(new() { VictimId = 2, Year = 2022, VictimsName = "Robert Thompson", VictimsLocation = "Manhattan, NYC" });
+            victims.Add(new() { VictimId = 3, Year = 2023, VictimsName = "Linda Park", VictimsLocation = "Brooklyn, NYC" });
 
             // Seed the main entities
             modelBuilder.Entity<Criminal>().HasData(criminals);
             modelBuilder.Entity<Victim>().HasData(victims);
             modelBuilder.Entity<Offence>().HasData(offences);
 
-            // Seed many-to-many relationships
-            modelBuilder.Entity<Offence>()
-                .HasMany(offences => offences.Victims)
-                .WithMany( victims => victims.Criminals)
-                .UsingEntity(join => join.HasData(
-                    new { OffencesStatisticsId = 1, VictimId = 1 },
-                    new { OffencesStatisticsId = 2, VictimId = 2 },
-                     new { OffencesStatisticsId = 3, VictimId = 3 }
-                ));
+            // Seed many-to-many relationships using the join table
+            modelBuilder.Entity<OffenceVictim>().HasData(
+             new OffenceVictim { OffencesId = 1, VictimId = 2 },
+             new OffenceVictim { OffencesId = 2, VictimId = 1 },
+             new OffenceVictim { OffencesId = 2, VictimId = 3 });
         }
     }
 }

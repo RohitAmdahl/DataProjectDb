@@ -1,30 +1,24 @@
 ﻿using DataProject.Models;
+using DataProjectDb.Models;
 using System.ComponentModel.DataAnnotations;
 
-namespace DataProjectDb.Models
+public class Offence
 {
-    public class Offence
-    {
-        [Key]
-        [Required]
-        public int OffencesStatisticsId { get; set; }
-        [Required]
-        [MaxLength(250)]
-        public string OffenceName { get; set; }
-        [Required]
-        [MaxLength(250)]
-        public string Count { get; set; }
-        [Required]
-        [MaxLength(250)]
-        public int Year { get; set; }
+    [Key]
+    [Required]
+    public int OffencesId { get; set; }
+    [Required]
+    [MaxLength(250)]
+    public string OffenceName { get; set; }
+    [Required]
+    public int Count { get; set; } 
+    [Required]
+    public int Year { get; set; }
 
-        //  Navigation property for the relationship
-        // Foreign Key for Criminal
-        public int CriminalId { get; set; }
-        public Criminal Criminal { get; set; }
+    // Many-to-one relationship with Criminal
+    public int CriminalId { get; set; }
+    public Criminal Criminal { get; set; }
 
-        // Many-to-Many relationship with Victims
-        public List<Victim> Victims { get; set; }
-
-    }
+    // Many-to-many relationship with Victims through OffenceVictim
+    public List<OffenceVictim> OffenceVictims { get; set; }
 }

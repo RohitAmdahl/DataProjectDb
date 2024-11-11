@@ -19,10 +19,9 @@ builder.Services.AddSwaggerGen(options =>
     options.SwaggerDoc("v1", new OpenApiInfo
     {
         Version = "v1",
-        Title = "National Statistics API",
-        Description = "An ASP.NET Core Web API providing access to civic data," +
-        " including population statistics, migration trends, police offence reports, " +
-        "and victim statistics ETC National Statistics.",
+        Title = "Socail data API",
+        Description = "An ASP.NET Core Web API providing access to Victim, Crime, and Offence data",
+        
         TermsOfService = new Uri("https://example.com/terms"),
         Contact = new OpenApiContact
         {
@@ -49,6 +48,13 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+
+app.UseCors(builder => builder
+    .AllowAnyHeader()
+    .AllowAnyMethod()
+    .AllowAnyOrigin()
+);
 
 app.MapControllers();
 

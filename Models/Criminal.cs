@@ -38,12 +38,8 @@ namespace DataProject.Models
         public string CriminalHistory {  get; set; }
 
         // Navigation property 
-        // One-to-Many relationship with Offenses
-        public List<Offence> Offenses { get; set; }
-
-        // Many-to-Many relationship with Victims
-        public List<Victim> Victims { get; set; }
-
+        public List<Offence> Offences { get; set; }
+        public List<OffenceVictim> OffenceVictims { get; set; }
 
     }
 }

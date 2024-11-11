@@ -1,28 +1,46 @@
-﻿using DataProject.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using DataProject.Models;
 using DataProjectDb.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace DataProject.Data
 {
     public class DataProjectDbContext : DbContext
     {
-        public DbSet<Criminal> criminals { get; set; }
-        public DbSet<Victim> victims { get; set; }
+        public DbSet<Criminal> Criminals { get; set; }
+        public DbSet<Victim> Victims { get; set; }
+        public DbSet<Offence> Offences { get; set; }
+        public DbSet<OffenceVictim> OffenceVictims { get; set; }
 
-        public DbSet<Offence> Offenses { get; set; }
-
-        // Create a constructor
+        // Constructor
         public DataProjectDbContext(DbContextOptions options) : base(options) { }
 
-        //override - OnModelcreating
+        // Configuring the relationships
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            // Call seed data method to initialize with data
-            DbHelper.SeedData(modelBuilder);
-          
+
+            // One-to-many relationship between Criminal and Offence
+            modelBuilder.Entity<Offence>()
+                .HasOne(o => o.Criminal)
+                .WithMany(c => c.Offences)
+                .HasForeignKey(o => o.CriminalId);
+
+            // Many-to-many relationship between Offence and Victim through OffenceVictim
+            modelBuilder.Entity<OffenceVictim>()
+                .HasKey(ov => new { ov.OffencesId, ov.VictimId });
+
+            modelBuilder.Entity<OffenceVictim>()
+                .HasOne(ov => ov.Offence)
+                .WithMany(o => o.OffenceVictims)
+                .HasForeignKey(ov => ov.OffencesId);
+
+            modelBuilder.Entity<OffenceVictim>()
+                .HasOne(ov => ov.Victim)
+                .WithMany(v => v.OffenceVictims)
+                .HasForeignKey(ov => ov.VictimId);
+
+            // seeding data 
+             DbHelper.SeedData(modelBuilder); 
         }
-
-
     }
 }

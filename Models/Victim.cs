@@ -12,12 +12,11 @@ namespace DataProjectDb.Models
         [Required]
         public int Year { get; set; }
         [MaxLength(250)]
-        [MaybeNull]
         public string VictimsName { get; set; } 
         [MaxLength(250)]
         public string VictimsLocation { get; set; }
 
         // Many-to-Many relationship with Criminals
-        public List<Criminal> Criminals { get; set; }
+        public List<OffenceVictim> OffenceVictims { get; set; }
     }
 }
