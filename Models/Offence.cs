@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DataProjectDb.Models
 {
-    public class OffencesStatistics
+    public class Offence
     {
         [Key]
         [Required]
@@ -18,13 +18,13 @@ namespace DataProjectDb.Models
         [MaxLength(250)]
         public int Year { get; set; }
 
-        //  // Navigation property for the relationship
+        //  Navigation property for the relationship
+        // Foreign Key for Criminal
         public int CriminalId { get; set; }
-        public Criminal Criminals { get; set; }
-        public List<Criminal> Criminal { get; set; }
-        //public int VictimStatisticsId { get; set; }
-        //public VictimStatistics VictimStatistics { get; set; }
+        public Criminal Criminal { get; set; }
 
+        // Many-to-Many relationship with Victims
+        public List<Victim> Victims { get; set; }
 
     }
 }

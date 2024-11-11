@@ -17,9 +17,13 @@ namespace DataProject.Models
         public string Nationality { get; set; } 
         public string CriminalHistory {  get; set; }
 
-        // Navigation property for many-to-many relationship with Offenses
+        // Navigation property 
+        // One-to-Many relationship with Offenses
+        public List<Offence> Offenses { get; set; }
 
-        public List<OffencesStatistics> OffencesStatistics { get; set; }
-        public List<VictimStatistics> VictimStatistics { get; set; }
+        // Many-to-Many relationship with Victims
+        public List<Victim> Victims { get; set; }
+
+
     }
 }

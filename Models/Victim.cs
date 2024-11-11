@@ -4,11 +4,11 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace DataProjectDb.Models
 {
-    public class VictimStatistics
+    public class Victim
     {
         [Key]
         [Required]
-        public int VictimStatisticsId { get; set; }
+        public int VictimId { get; set; }
         [Required]
         public int Year { get; set; }
         [Required]
@@ -18,14 +18,8 @@ namespace DataProjectDb.Models
         [Required]
         [MaxLength(250)]
         public string VictimsLocation { get; set; }
-        public List<OffencesStatistics>? OffencesStatisticses { get; set; }
 
-        //  // Navigation property for the relationship
-        public int CriminalId { get; set; }
-        public Criminal Criminal { get; set; }
-
-        // Many-to-Many with Criminal
+        // Many-to-Many relationship with Criminals
         public List<Criminal> Criminals { get; set; }
-
     }
 }
