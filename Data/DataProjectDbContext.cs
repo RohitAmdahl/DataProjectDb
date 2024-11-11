@@ -9,7 +9,7 @@ namespace DataProject.Data
         public DbSet<Criminal> criminals { get; set; }
         public DbSet<Victim> victims { get; set; }
 
-        public DbSet<Offense> Offenses { get; set; }
+        public DbSet<Offence> Offenses { get; set; }
 
         // Create a constructor
         public DataProjectDbContext(DbContextOptions options) : base(options) { }

@@ -11,11 +11,9 @@ namespace DataProjectDb.Models
         public int VictimId { get; set; }
         [Required]
         public int Year { get; set; }
-        [Required]
         [MaxLength(250)]
         [MaybeNull]
-        public string VictimsName { get; set; }
-        [Required]
+        public string VictimsName { get; set; } 
         [MaxLength(250)]
         public string VictimsLocation { get; set; }
 

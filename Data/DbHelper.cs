@@ -81,7 +81,7 @@ namespace DataProject.Data
             });
             offences.Add(new()
             {
-                OffencesStatisticsId = 3,
+                OffencesStatisticsId = 4,
                 OffenceName = "Offences for profit",
                 Count = "32843",
                 Year = 2023,
@@ -113,15 +113,17 @@ namespace DataProject.Data
             // Seed the main entities
             modelBuilder.Entity<Criminal>().HasData(criminals);
             modelBuilder.Entity<Victim>().HasData(victims);
-            modelBuilder.Entity<Offence>().HasData(offenses);
+            modelBuilder.Entity<Offence>().HasData(offences);
 
             // Seed the many-to-many relationship data
-            modelBuilder.Entity<Offense>()
-                .HasMany(o => o.Victims)
-                .WithMany(v => v.Criminals)
-                .UsingEntity(joinEntity => joinEntity.HasData(
-                    new { OffensesOffenseId = 1, VictimsVictimId = 1 },
-                    new { OffensesOffenseId = 2, VictimsVictimId = 2 }
+            // Seed many-to-many relationships
+            modelBuilder.Entity<Offence>()
+                .HasMany(offences => offences.Victims)
+                .WithMany( victims => victims.Criminals)
+                .UsingEntity(join => join.HasData(
+                    new { OffencesStatisticsId = 1, VictimId = 1 },
+                    new { OffencesStatisticsId = 2, VictimId = 2 },
+                     new { OffencesStatisticsId = 3, VictimId = 3 }
                 ));
         }
     }
