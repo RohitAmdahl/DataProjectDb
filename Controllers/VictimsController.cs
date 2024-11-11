@@ -7,10 +7,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DataProject.Data;
 using DataProjectDb.Models;
+using System.Net.Mime;
 
 namespace DataProject.Controllers
 {
     [Route("api/[controller]")]
+    [Produces("application/json")]
+    [Consumes(MediaTypeNames.Application.Json)]
+    [ApiConventionType(typeof(DefaultApiConventions))]
     [ApiController]
     public class VictimsController : ControllerBase
     {
