@@ -61,7 +61,7 @@ namespace DataProject.Data
                 OffenceName = "Sexual offences",
                 Count = "7484",
                 Year = 2023,
-                CriminalId = 1 // 
+                CriminalId = 1 
             });
             offences.Add(new()
             {
@@ -115,7 +115,6 @@ namespace DataProject.Data
             modelBuilder.Entity<Victim>().HasData(victims);
             modelBuilder.Entity<Offence>().HasData(offences);
 
-            // Seed the many-to-many relationship data
             // Seed many-to-many relationships
             modelBuilder.Entity<Offence>()
                 .HasMany(offences => offences.Victims)
